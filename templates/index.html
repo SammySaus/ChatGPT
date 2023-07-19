@@ -6,17 +6,23 @@
 </head>
 <body>
     <h1>ChatGPT Interface</h1>
+    <label for="system_message">Custom Bot Persona:</label>
+    <input type="text" name="system_message" id="system_message">
+
     <form action="/" method="post">
         <label for="user_input">Your message:</label>
         <input type="text" name="user_input" id="user_input" required>
         <button type="submit">Submit</button>
     </form>
     {% if user_input %}
-        <h2>User Input:</h2>
-        <p>{{ user_input }}</p>
-        <h2>ChatGPT Response:</h2>
-        <p>{{ response }}</p>
-    {% endif %}
+    <h2>User Input:</h2>
+    <p>{{ user_input }}</p>
+    <h2>Custom Bot Persona:</h2>
+    <p>{{ system_message }}</p>
+    <h2>ChatGPT Response:</h2>
+    <p>{{ response }}</p>
+{% endif %}
+
     <!-- Add any additional HTML or elements here -->
 </body>
 </html>
