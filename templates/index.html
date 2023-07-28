@@ -6,13 +6,18 @@
 </head>
 <body>
     <h1>ChatGPT Interface</h1>
-    <label for="system_message">Custom Bot Persona:</label>
-    <input type="text" name="system_message" id="system_message">
-
     <form action="/" method="post">
         <label for="user_input">Your message:</label>
         <input type="text" name="user_input" id="user_input" required>
+
+        <!-- Add "system_message" input field for the custom bot persona -->
+        <label for="system_message">Custom Bot Persona:</label>
+        <input type="text" name="system_message" id="system_message">
+        <!-- add a hidden input to store the original system message-->
+        <input type="hidden" name="original_system_message" id="original_system_message">
+
         <button type="submit">Submit</button>
+    
     </form>
     {% if user_input %}
     <h2>User Input:</h2>
@@ -24,5 +29,38 @@
 {% endif %}
 
     <!-- Add any additional HTML or elements here -->
+
+    <script>
+        // Check if system message is present in the cookie
+        const systemMessageInput = document.getElementById("system_message");
+        const originalSystemMessageInput = document.getElementById("original_system_message");
+        const systemMessageCookie = getCookie("system_message");
+        if (systemMessageCookie) {
+            systemMessageInput.value = decodeURIComponent(systemMessageCookie.replace(/\+/g, " "));
+            // Hide the "Custom Bot Persona" input box after the first submit action
+            originalSystemMessageInput.value = systemMessageInput.value;
+            systemMessageInput.disabled = true;
+        }
+
+        // Save system message to a cookie when the input field is changed
+        systemMessageInput.addEventListener("input", function() {
+            setCookie("system_message", encodeURIComponent(systemMessageInput.value), 7);
+        });
+
+        // Function to set a cookie
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = name + "=" + value + ";expires=" + expires.toUTCString() + ";path=/";
+        }
+
+        // Function to get a cookie
+        function getCookie(name) {
+            const value = "; " + document.cookie;
+            const parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+    </script>
+
 </body>
 </html>

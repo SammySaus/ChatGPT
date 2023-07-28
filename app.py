@@ -44,15 +44,17 @@ def generate_response(prompt, system_message=None):
 def chat():
     if request.method == "POST":
         user_input = request.form["user_input"]
-        system_message = request.form.get("system_message")  # Get the custom system message from the form
+        system_message = request.form.get("system_message")
 
         if not user_input.strip():
             return "Error: User input cannot be empty."
+
         if system_message is not None and not system_message.strip():
             return "Error: Custom Bot Persona cannot be empty."
-        
+
         response = generate_response(user_input, system_message)
         return render_template("index.html", user_input=user_input, system_message=system_message, response=response)
+
     return render_template("index.html")
 
 
