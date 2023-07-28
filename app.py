@@ -11,29 +11,17 @@ load_dotenv()
 API_KEY = os.getenv("CHATGPT_API_KEY")
 API_URL = "https://api.openai.com/v1/chat/completions"
 
-
-# def generate_response(prompt):
-    # headers = {
-    #     "Content-Type": "application/json",
-    #     "Authorization": f"Bearer {API_KEY}"
-    # }
-    # data = {
-    #     "model": "gpt-3.5-turbo",
-    #     "messages": [{"role": "system", "content": "You are a helpful assistant."},
-    #                  {"role": "user", "content": prompt}]
-    # }
-    # response = requests.post(API_URL, json=data, headers=headers)
-    # return response.json()["choices"][0]["message"]["content"]
-
-
-def generate_response(prompt):
+def generate_response(prompt, system_message=None):
+    if system_message is None:
+        system_message = "You are a helpful assistant."
+    
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {API_KEY}"
     }
     data = {
         "model": "gpt-3.5-turbo",
-        "messages": [{"role": "system", "content": "You are a helpful assistant."},
+        "messages": [{"role": "system", "content": system_message},
                      {"role": "user", "content": prompt}]
     }
 
@@ -56,9 +44,19 @@ def generate_response(prompt):
 def chat():
     if request.method == "POST":
         user_input = request.form["user_input"]
-        response = generate_response(user_input)
-        return render_template("index.html", user_input=user_input, response=response)
+        system_message = request.form.get("system_message")
+
+        if not user_input.strip():
+            return "Error: User input cannot be empty."
+
+        if system_message is not None and not system_message.strip():
+            return "Error: Custom Bot Persona cannot be empty."
+
+        response = generate_response(user_input, system_message)
+        return render_template("index.html", user_input=user_input, system_message=system_message, response=response)
+
     return render_template("index.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
