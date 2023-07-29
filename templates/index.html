@@ -17,16 +17,24 @@
         <!-- add a hidden input to store the original system message-->
         <input type="hidden" name="original_system_message" id="original_system_message">
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="submit-button">Submit</button>
     
     </form>
     {% if user_input %}
-    <h2>User Input:</h2>
-    <p>{{ user_input }}</p>
-    <h2>Custom Bot Persona:</h2>
-    <p>{{ system_message }}</p>
-    <h2>ChatGPT Response:</h2>
-    <p>{{ response }}</p>
+    <div class="chat-container">
+        <div class="user-message">
+            <h2>User Input:</h2>
+            <p>{{ user_input }}</p>
+        </div>
+        <div class="system-message">
+            <h2>Custom Bot Persona:</h2>
+            <p>{{ system_message }}</p>
+        </div>
+        <div class="gpt-response">
+            <h2>ChatGPT Response:</h2>
+            <p>{{ response }}</p>
+        </div>
+    </div>
 {% endif %}
 
     <!-- Add any additional HTML or elements here -->
