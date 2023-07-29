@@ -1,0 +1,75 @@
+/* Apply some basic styles to the body and header */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Style the form and input elements */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the Submit button */
+.submit-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Apply hover effect on the Submit button */
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Style the chat container */
+.chat-container {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+/* Style user and system messages */
+.user-message, .system-message, .gpt-response {
+    margin-bottom: 10px;
+}
+
+.user-message h2, .system-message h2, .gpt-response h2 {
+    color: #007bff;
+    font-size: 18px;
+}
+
+/* Customize colors for system and GPT responses */
+.system-message p {
+    background-color: #f2f2f2;
+    padding: 8px;
+}
+
+.gpt-response p {
+    background-color: #e6f7ff;
+    padding: 8px;
+}
